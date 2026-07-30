@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Pranu</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: 'Georgia', serif;
+        }
+
+        .background {
+            /* Using the updated filename here */
+            background-image: url('Click here 20260730_2224 17_0000.png');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        /* The invisible clickable area over the envelope */
+        #clickable-letter {
+            position: absolute;
+            top: 5%; 
+            left: 25%;
+            width: 50%;
+            height: 30%;
+            cursor: pointer;
+            /* background: rgba(255, 0, 0, 0.3); */ /* Uncomment this line to see the box for adjustment */
+        }
+
+        /* Popup Overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Modal Box */
+        .modal {
+            background: #fffafa;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 450px;
+            width: 85%;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border: 2px solid #ffb6c1;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .letter-modal {
+            max-height: 80vh;
+            overflow-y: auto;
+            text-align: left;
+            padding: 40px;
+        }
+
+        .letter-text {
+            white-space: pre-line;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .heart-icon {
+            color: #e74c3c;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            box-sizing: border-box;
+            outline: none;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        button {
+            background: #ffb6c1;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        button:hover {
+            background: #ff8fa3;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background">
+        <!-- Area over the envelope -->
+        <div id="clickable-letter" onclick="showPasswordPrompt()"></div>
+    </div>
+
+    <!-- Password Popup -->
+    <div id="passwordOverlay" class="overlay">
+        <div class="modal">
+            <div class="heart-icon">❤</div>
+            <h2 style="margin-top:0; color: #ff8fa3;">Locked with Love</h2>
+            <p>Please enter the secret password to read the letter:</p>
+            <input type="password" id="passwordInput" placeholder="Hint: Her name (small letters)">
+            <br>
+            <button onclick="checkPassword()">Unlock Letter</button>
+        </div>
+    </div>
+
+    <!-- The Final Letter -->
+    <div id="letterOverlay" class="overlay">
+        <div class="modal letter-modal">
+            <div class="letter-text">
+Hey Pranu,
+
+I’ve been thinking about us a lot lately, and I wanted to put into words what you mean to me.
+
+Ever since the day I joined Skypath, everything seemed to shift in the best way possible. Right from the start, I couldn't help but notice you—your smile, the way you talk, and just the warmth and energy you bring into every room. Before I knew it, I wasn't just admiring you; I fell for you, completely.
+
+I know things between us are still pretty new, and I understand if you feel a bit confused or overwhelmed about where we stand right now. That is completely okay, and I don't want you to feel any pressure. But I want to be honest about my feelings: I truly care about you, and I am ready to give this relationship everything I've got.
+
+If you give us a real chance, I promise to always treat you with care, respect, and love, and do everything in my power to keep that beautiful smile on your face every single day. We don't have to have everything figured out right away; we just need to take it one step at a time, together.
+
+Will you take this journey with me and be my partner?
+
+With all my love,
+Vedh Shinde
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="closeAll()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Change the password here if you want something else
+        const THE_PASSWORD = "pranu"; 
+
+        function showPasswordPrompt() {
+            document.getElementById('passwordOverlay').style.display = 'flex';
+            document.getElementById('passwordInput').focus();
+        }
+
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value;
+            if (input.toLowerCase() === THE_PASSWORD.toLowerCase()) {
+                document.getElementById('passwordOverlay').style.display = 'none';
+                document.getElementById('letterOverlay').style.display = 'flex';
+            } else {
+                alert("That's not the right password. Try again! ❤️");
+                document.getElementById('passwordInput').value = "";
+            }
+        }
+
+        function closeAll() {
+            document.getElementById('letterOverlay').style.display = 'none';
+            document.getElementById('passwordOverlay').style.display = 'none';
+        }
+
+        // Support for Enter key
+        document.getElementById('passwordInput').addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+</html>
